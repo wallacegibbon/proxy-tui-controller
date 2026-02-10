@@ -148,6 +148,7 @@ func (m *Model) navigateGroup(direction int) (tea.Model, tea.Cmd) {
 			m.Cursor = 0
 		}
 		m.ViewportOffset = 0
+		m.adjustViewport()
 	}
 	return *m, nil
 }
