@@ -101,7 +101,6 @@ func (m Model) View() string {
 		}
 	}
 
-	s += separatorStyle.Render("═══════════════════════════════════════") + "\n"
 	if m.Height < 15 {
 		s += helpStyle.Render(" h/l:grp  j/k:prox  Ent:sel  r:reload  q:quit")
 	} else {
