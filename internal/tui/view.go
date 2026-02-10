@@ -41,13 +41,20 @@ func (m Model) View() string {
 		s += groupLabel + "\n"
 
 		if i == m.CurrentIdx {
+			// Calculate how many proxies we can show
+			availableRows := m.Height - len(m.Groups) - minHelpRows
+			if availableRows < 1 {
+				availableRows = 1
+			}
+			visibleCount := min(maxVisibleProxies, availableRows)
+
 			visibleProxies := proxy.All
-			if len(proxy.All) > maxVisibleProxies {
+			if len(proxy.All) > visibleCount {
 				startIdx := m.ViewportOffset
 				if startIdx < 0 {
 					startIdx = 0
 				}
-				endIdx := startIdx + maxVisibleProxies
+				endIdx := startIdx + visibleCount
 				if endIdx > len(proxy.All) {
 					endIdx = len(proxy.All)
 				}
@@ -69,14 +76,18 @@ func (m Model) View() string {
 				s += line + "\n"
 			}
 
-			if len(proxy.All) > maxVisibleProxies {
-				s += helpStyle.Render("  " + strings.Repeat("-", 20) + fmt.Sprintf(" %d/%d ", len(proxy.All), len(proxy.All))) + "\n"
+			if len(proxy.All) > visibleCount {
+				s += helpStyle.Render("  " + strings.Repeat("-", 15) + fmt.Sprintf(" %d/%d ", m.ViewportOffset+len(visibleProxies), len(proxy.All))) + "\n"
 			}
 		}
 	}
 
 	s += separatorStyle.Render("═══════════════════════════════════════") + "\n"
-	s += helpStyle.Render(" [←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit")
+	if m.Height < 15 {
+		s += helpStyle.Render(" h/l:grp  j/k:prox  Ent:sel  r:reload  q:quit")
+	} else {
+		s += helpStyle.Render(" [←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit")
+	}
 
 	return s
 }

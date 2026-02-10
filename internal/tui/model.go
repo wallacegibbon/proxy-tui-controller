@@ -18,6 +18,7 @@ type proxiesLoadedMsg struct {
 
 const (
 	maxVisibleProxies = 20
+	minHelpRows      = 2 // footer + separator
 )
 
 var (
@@ -41,6 +42,7 @@ type Model struct {
 	Loading        bool
 	Err            error
 	ViewportOffset int
+	Height         int // Terminal height
 }
 
 func InitialModel() Model {
@@ -54,6 +56,7 @@ func InitialModel() Model {
 		Loading:        true,
 		Err:            nil,
 		ViewportOffset: 0,
+		Height:         24,
 	}
 }
 

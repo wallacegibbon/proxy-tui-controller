@@ -28,6 +28,7 @@ func TestCursorMovement(t *testing.T) {
 		CurrentIdx: 0,
 		Cursor:     0,
 		Loading:    false,
+		Height:     24,
 	}
 
 	newModel, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'j'}})
@@ -84,6 +85,7 @@ func TestViewCursor(t *testing.T) {
 		CurrentIdx: 0,
 		Cursor:     1,
 		Loading:    false,
+		Height:     24,
 	}
 	out := m.View()
 	t.Logf("View output:\n%s", out)
@@ -109,6 +111,7 @@ func TestViewCursorOnActive(t *testing.T) {
 		CurrentIdx: 0,
 		Cursor:     0,
 		Loading:    false,
+		Height:     24,
 	}
 	out := m.View()
 	t.Logf("View output:\n%s", out)

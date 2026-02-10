@@ -12,6 +12,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case tea.WindowSizeMsg:
+		m.Height = msg.Height
 		m.adjustViewport()
 		return m, nil
 
@@ -161,21 +162,36 @@ func (m *Model) adjustViewport() {
 		return
 	}
 
+	// Calculate max visible proxies based on terminal height
+	// Formula: Height - groups - footer (minHelpRows rows)
+	availableRows := m.Height - len(m.Groups) - minHelpRows
+	if availableRows < 1 {
+		availableRows = 1
+	}
+	visibleCount := min(maxVisibleProxies, availableRows)
+
 	if m.Cursor < m.ViewportOffset {
 		m.ViewportOffset = m.Cursor
-	} else if m.Cursor >= m.ViewportOffset+maxVisibleProxies {
-		m.ViewportOffset = m.Cursor - maxVisibleProxies + 1
+	} else if m.Cursor >= m.ViewportOffset+visibleCount {
+		m.ViewportOffset = m.Cursor - visibleCount + 1
 	}
 
 	if m.ViewportOffset < 0 {
 		m.ViewportOffset = 0
 	}
 
-	maxOffset := len(proxy.All) - maxVisibleProxies
+	maxOffset := len(proxy.All) - visibleCount
 	if maxOffset < 0 {
 		maxOffset = 0
 	}
 	if m.ViewportOffset > maxOffset {
 		m.ViewportOffset = maxOffset
 	}
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
