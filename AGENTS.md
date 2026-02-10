@@ -24,3 +24,8 @@ MOCK_CLASH=1 ./proxy-tui-controller
 - `↑/k` / `↓/j`: Previous/Next proxy
 - `Enter`: Select proxy
 - `r`: Refresh, `q`: Quit
+
+## Agent Instructions
+- **Read STATE.md** at the start of every conversation
+- **Update STATE.md** after completing any meaningful work (features, bug fixes, etc.)
+- Keep STATE.md as the single source of truth for project status
