@@ -70,11 +70,11 @@ func (m Model) View() string {
 				actualIdx := j + m.ViewportOffset
 				var line string
 				if actualIdx == m.Cursor && p == proxy.Now {
-					line = cursorStyle.Render(">● ") + activeProxyStyle.Render(p)
+					line = cursorStyle.Render(">> ") + activeProxyStyle.Render(p)
 				} else if actualIdx == m.Cursor {
 					line = cursorStyle.Render(">  ") + p
 				} else if p == proxy.Now {
-					line = " ● " + activeProxyStyle.Render(p)
+					line = " " + activeProxyMarkStyle.Render(">") + " " + activeProxyStyle.Render(p)
 				} else {
 					line = "   " + normalStyle.Render(p)
 				}

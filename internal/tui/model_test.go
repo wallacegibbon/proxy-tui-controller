@@ -92,8 +92,8 @@ func TestViewCursor(t *testing.T) {
 	if !strings.Contains(out, ">  ") {
 		t.Errorf("Expected cursor marker '>  ' in output, got:\n%s", out)
 	}
-	if !strings.Contains(out, " ● Proxy-1") {
-		t.Errorf("Expected active proxy marker ' ● Proxy-1' in output, got:\n%s", out)
+	if !strings.Contains(out, " > Proxy-1") {
+		t.Errorf("Expected active proxy marker ' > Proxy-1' in output, got:\n%s", out)
 	}
 }
 
@@ -115,10 +115,10 @@ func TestViewCursorOnActive(t *testing.T) {
 	}
 	out := m.View()
 	t.Logf("View output:\n%s", out)
-	if !strings.Contains(out, ">● Proxy-1") {
-		t.Errorf("Expected combined marker '>● Proxy-1' when cursor is on active proxy, got:\n%s", out)
+	if !strings.Contains(out, ">> Proxy-1") {
+		t.Errorf("Expected combined marker '>> Proxy-1' when cursor is on active proxy, got:\n%s", out)
 	}
-	if !strings.Contains(out, "●") {
-		t.Errorf("Expected active proxy marker ● in output, got:\n%s", out)
+	if !strings.Contains(out, ">") {
+		t.Errorf("Expected active proxy marker > in output, got:\n%s", out)
 	}
 }

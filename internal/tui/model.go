@@ -26,6 +26,7 @@ var (
 	selectedGroupStyle = lipgloss.NewStyle().Background(lipgloss.Color("57")).Foreground(lipgloss.Color("231")).Bold(true)
 	normalStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("245"))
 	activeProxyStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("86")).Bold(true)
+	activeProxyMarkStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("208")).Bold(true)
 	cursorStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("51")).Bold(true)
 	selectedStyle      = lipgloss.NewStyle().Background(lipgloss.Color("238")).Foreground(lipgloss.Color("255"))
 	helpStyle          = lipgloss.NewStyle().Foreground(lipgloss.Color("244"))
