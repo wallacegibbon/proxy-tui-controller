@@ -21,8 +21,8 @@ go install github.com/wallacegibbon/proxy-controller-tui@latest
 ## Features
 - Uses alternate screen buffer for proper terminal cleanup on exit
 - Compact, modern TUI interface for Clash/Mihomo proxy management
-- Small terminal support with dynamic viewport and compact help text
-- Beautiful group styling with dark blue background color
+- Small terminal support with dynamic viewport
+- Beautiful group styling with turquoise background color
 - Proper multi-byte character support (Chinese/English mixed names)
 - Active proxy marked with `>` in orange (cursor: `>` in cyan)
 - Inline position indicator (x/xx) following cursor
@@ -44,7 +44,7 @@ go install github.com/wallacegibbon/proxy-controller-tui@latest
 - `r`: Refresh, `q`: Quit
 
 ## UI Design
-- **Layout**: All groups in order (like tabs) with content padded to stay near bottom
+- **Layout**: Top group always on top line, no gaps between unselected groups, bottom group directly above help line (no padding)
 - **Groups**: Turquoise background (color 45), selected group in white, 3-space padding
   - Groups displayed in original order, navigating up/down moves through all groups
   - Selected group shows its proxies below it
@@ -53,4 +53,8 @@ go install github.com/wallacegibbon/proxy-controller-tui@latest
   - Cursor: `>` marker in cyan (color 51), or `>>` when on active proxy
   - Normal: No marker
 - **Position indicator**: `(x/xx)` shown next to cursor when scrolling needed
-- **Help**: Fixed at bottom of terminal, compact format on terminals < 15 rows, full format otherwise
+- **Help**: Fixed at bottom of terminal with format `[←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit`
+- **Padding**: 
+  - No gaps between unselected groups
+  - Padding added after selected group's proxies (if not last group) to push remaining groups down
+  - Padding added before help line (when selected group is last or single group) to fill terminal height

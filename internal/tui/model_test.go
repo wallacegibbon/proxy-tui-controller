@@ -164,8 +164,8 @@ func TestHelpAtBottomSmallTerminal(t *testing.T) {
 	}
 
 	lastLine := lines[len(lines)-1]
-	if !strings.Contains(lastLine, "q:quit") {
-		t.Errorf("Compact help message not on last line, got: %q", lastLine)
+	if !strings.Contains(lastLine, "[q]Quit") {
+		t.Errorf("Help message not on last line, got: %q", lastLine)
 	}
 }
 

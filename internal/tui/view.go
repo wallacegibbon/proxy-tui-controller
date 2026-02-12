@@ -37,6 +37,35 @@ func (m Model) View() string {
 
 	var s string
 
+	// First, count the number of proxy lines that will be shown
+	proxyLines := 0
+	for i, group := range m.Groups {
+		if i == m.CurrentIdx {
+			if proxy, ok := m.Proxies[group]; ok {
+				// Calculate how many proxies we can show
+				availableRows := m.Height - len(m.Groups) - minHelpRows
+				if availableRows < 1 {
+					availableRows = 1
+				}
+				visibleCount := availableRows
+				if len(proxy.All) < visibleCount {
+					proxyLines = len(proxy.All)
+				} else {
+					proxyLines = visibleCount
+				}
+			}
+		}
+	}
+
+	// Calculate padding after selected group's proxies to push remaining groups down
+	// This ensures bottom group stays near help line
+	// Total content = len(m.Groups) groups + proxyLines + 1 help line
+	// Available padding = m.Height - len(m.Groups) - proxyLines - 1
+	paddingAfterSelected := m.Height - len(m.Groups) - proxyLines - 1
+	if paddingAfterSelected < 0 {
+		paddingAfterSelected = 0
+	}
+
 	for i, group := range m.Groups {
 		proxy, ok := m.Proxies[group]
 		if !ok {
@@ -95,29 +124,24 @@ func (m Model) View() string {
 				s += line + "\n"
 			}
 		}
-	}
 
-	// Add padding to keep content near bottom (above help)
-	// Count content lines
-	contentLines := strings.Count(s, "\n")
-	if contentLines > 0 {
-		// Add padding to push content up toward help
-		// We need: padding + contentLines + 1 (help line) = m.Height
-		// So: padding = m.Height - contentLines - 1
-		padding := m.Height - contentLines - 1
-		if padding > 0 {
-			s = strings.Repeat("\n", padding) + s
+		// Add padding after selected group's proxies to push remaining groups down
+		// This keeps bottom group near help line (for multiple groups when not last group)
+		if i == m.CurrentIdx && i < len(m.Groups)-1 && paddingAfterSelected > 0 {
+			s += strings.Repeat("\n", paddingAfterSelected)
 		}
 	}
 
-	// Add help text at bottom
-	var helpText string
-	if m.Height < 15 {
-		helpText = helpStyle.Render(" h/l:grp  j/k:prox  Ent:sel  r:reload  q:quit")
-	} else {
-		helpText = helpStyle.Render(" [←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit")
+	// Add padding before help line when:
+	// 1. Single group (no more groups after proxies)
+	// 2. Multiple groups but selected group is the last one
+	needPaddingBeforeHelp := len(m.Groups) == 1 || m.CurrentIdx == len(m.Groups)-1
+	if needPaddingBeforeHelp && paddingAfterSelected > 0 {
+		s += strings.Repeat("\n", paddingAfterSelected)
 	}
-	s += helpText
+
+	// Add help text at bottom
+	s += helpStyle.Render(" [←h]Prev [→l]Next  [↑k]↑ [↓j]↓  [Ent]Select  [r]Reload  [q]Quit")
 
 	return s
 }
