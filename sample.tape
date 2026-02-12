@@ -1,6 +1,6 @@
 Output demo.gif
 
-Set FontSize 28
+Set FontSize 18
 Set Width 1200
 Set Height 800
 Set TypingSpeed 50ms
