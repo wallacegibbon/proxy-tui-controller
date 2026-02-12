@@ -44,7 +44,7 @@ go install github.com/wallacegibbon/proxy-controller-tui@latest
 - `r`: Refresh, `q`: Quit
 
 ## UI Design
-- **Groups**: Dark blue background (color 60), selected group in white, 3-space padding
+- **Groups**: Turquoise background (color 45), selected group in white, 3-space padding
 - **Proxies**: 
   - Active proxy: `>` marker in orange (color 208)
   - Cursor: `>` marker in cyan (color 51), or `>>` when on active proxy
