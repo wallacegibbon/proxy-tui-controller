@@ -36,6 +36,7 @@ go install github.com/wallacegibbon/proxy-controller-tui@latest
   - On startup and group switches, cursor goes to the currently active proxy
   - After manual navigation, cursor stays on the proxy you navigated to
   - Preserved across reloads by tracking the proxy name at cursor
+  - Viewport position preserved during refresh to maintain visual context
 - Only resets cursor to active proxy if the proxy you were on no longer exists
 - 200ms delay after PUT request to allow server to process selection before refreshing data
 

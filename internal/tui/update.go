@@ -51,7 +51,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.updateLastCursorProxy()
 			}
 		}
-		m.ViewportOffset = 0
 		m.adjustViewport()
 		return m, nil
 
